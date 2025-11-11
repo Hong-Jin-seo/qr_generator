@@ -1,0 +1,43 @@
+import qrcode
+import os
+
+def generate_qr_code():
+    # 사용자 입력 기반으로 QR 코드를 생성하고 PNG 파일로 저장하는 함수
+
+    # 1. 사용자로부터 QR 코드로 만들 텍스트/URL 입력
+    data = input("QR코드로 만들 텍스트나 URL을 입력하세요 : ")
+
+    if not data:
+        print("입력한 내용이 없습니다. 프로그램을 종료합니다.")
+        return
+    
+    # 2. QR 코드 객체 생성 및 설정
+    # version : QR 코드의 복잡도 (1부터 40까지, None이면 자동으로 설정)
+    # box size : QR 코드 박스의 크기
+    # border : QR 코드 주변의 여백 크기
+    qr = qrcode.QRCode(
+        version=None,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=10,
+        border=4,
+    )
+
+    # 3. 데이터 추가 및 QR 코드 이미지화
+    qr.add_data(data)
+    qr.make(fit=True) # 데이터 크기에 맞춰 QR 코드 크기 조정
+
+    # 4. 이미지 객체 생성
+    img = qr.make_image(fill_colors = 'black', back_colors = 'white')
+
+    # 5. 파일로 저장
+    file_name = 'my_qrcode.png'
+    img.save(file_name)
+
+    # 현재 저장된 경로를 알려줌
+    current_directory = os.getcwd()
+    print(f"\n QR 코드가 성공적으로 생성되었습니다.")
+    print(f"파일 이름 : {file_name}")
+    print(f"저장된 경로 : {current_directory}\\{file_name}")
+
+if __name__ == "__main__":
+    generate_qr_code()
