@@ -1,4 +1,4 @@
-# qr_generator
+# QR_generator
 A simple Python utility that generates QR code images from user-provided text or URLs.
 
 ## 기능
